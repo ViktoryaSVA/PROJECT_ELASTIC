@@ -5,7 +5,7 @@ var jsmediatags = require("jsmediatags");
 const testFolder = './Songs/';
 const fs = require('fs');
 
-mongoClient.connect(function(err, client){
+const one = mongoClient.connect(function(err, client){
 
     const db = client.db("NodeDB");
     const collection = db.collection("works");
@@ -17,9 +17,9 @@ mongoClient.connect(function(err, client){
           .setTagsToRead(["title", "artist"])
           .read({
             onSuccess: function(tag) {
-              let works = {title: tag.tags.title, artist: tag.tags.artist};
-          
-              collection.insertOne(works, function(err, result){
+              let data = {title: tag.tags.title, artist: tag.tags.artist};
+
+              collection.insertOne(data, function(err, result){
 
                   if(err){
                       return console.log(err);
@@ -42,14 +42,7 @@ mongoClient.connect(function(err, client){
     })
 
     module.exports = {
-      works:works
+      one:one
     }
-    // collection.insertOne(works, function(err, result){
-    //
-    //     if(err){
-    //         return console.log(err);
-    //     }
-    //     console.log(result.ops);
-    //     client.close();
-    // });
+
 });

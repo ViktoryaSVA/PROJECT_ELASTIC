@@ -1,6 +1,7 @@
 const { Client } = require('@elastic/elasticsearch')
 const client = new Client({ node: 'http://localhost:9200' })
-const { works } = require('./insertdb.js')
+const { one } = require('./insertdb.js')
+
 async function run () {
   // promise API
   const { body } = await client.search({
@@ -8,7 +9,7 @@ async function run () {
       type:'_doc',
       body: {
         query: {
-          match: { age: 31 }
+          match: { artist: "Eminem" }
         }
       }
 
@@ -29,6 +30,5 @@ type:'_doc',
 
 }
 
-
 create();
-// console.log(run().catch);
+//console.log(run().catch);
